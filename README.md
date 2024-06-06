@@ -1,2 +1,2 @@
 # New Project of FreeRTOS
-Based on \muCOS-II
+Based on microCOS-II
