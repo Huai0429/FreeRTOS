@@ -1,2 +1,2 @@
 # New Project of FreeRTOS
-Based on $$\mu$$COS-II
+Based on $\mu$COS-II
