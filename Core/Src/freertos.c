@@ -26,6 +26,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include<stdio.h>
+#include "tim.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -66,7 +67,7 @@ osThreadId_t ReceiveHandle;
 const osThreadAttr_t Receive_attributes = {
   .name = "Receive",
   .stack_size = 128 * 4,
-  .priority = (osPriority_t) osPriorityLow2,
+  .priority = (osPriority_t) osPriorityLow,
 };
 /* Definitions for Sending */
 osEventFlagsId_t SendingHandle;
@@ -178,8 +179,9 @@ void SendTask(void *argument)
   {
     printf("Send Task %d %d\n",Send_attributes.priority, sendflag);
     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_6,sendflag);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,50);
     sendflag = !sendflag;
-    osDelay(10);
+    osDelay(80);
   }
   /* USER CODE END SendTask */
 }
@@ -202,8 +204,9 @@ void ReceiveTask(void *argument)
   {
     printf("Receive Task %d %d\n",Receive_attributes.priority,recflag);
     HAL_GPIO_WritePin(GPIOA,GPIO_PIN_7,recflag);
+    __HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1,200);
     recflag = !recflag;
-    osDelay(100);
+    osDelay(60);
   }
   /* USER CODE END ReceiveTask */
 }
